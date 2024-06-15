@@ -1,7 +1,7 @@
 import multiprocessing
 
 workers = multiprocessing.cpu_count() * 2 + 1
-bind = 'unix:hermes.sock'
+bind = 'unix:asstrobot.sock'
 umask = 0o007
 reload = True
 
