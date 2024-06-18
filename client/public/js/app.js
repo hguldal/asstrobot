@@ -1,11 +1,11 @@
-var app_name="Hermes";
-var botServer="https://klasorx.com";
+var app_name="MercuryBot";
+var botServer="https://asstrobot.hguldal.com";
 $.support.cors=true;
 var f7 = new Framework7({
     theme: 'ios',
     el: '#app',
     name: app_name,
-    id: 'com.hermes.test',
+    id: 'com.MercuryBot.test',
     panel: {
       swipe: true,
     }
@@ -43,7 +43,7 @@ var app = {
 
     onDeviceReady: function() {
        
-      init_hermes();
+      init_chatbot();
                  
     },
 
@@ -53,29 +53,7 @@ var app = {
 };
 app.initialize();
 
-
-function Linkify(inputText) {
-  var replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-  var replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank" style="color:blue" class="link external">Buraya tıklarmısın</a>');
-  var replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-  var replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" style="color:blue" target="_blank" class="link external"><br>Buraya tıklarmısın</a>');
-  var replacePattern3 = /(([a-zA-Z0-9_\-\.]+)@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6}))+/gim;
-  var replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">Link</a>');
-  return replacedText
-}
-
-function Linkify2(inputText) {
-  var replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-  var replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
-  var replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-  var replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
-  var replacePattern3 = /(([a-zA-Z0-9_\-\.]+)@[a-zA-Z_]+?(?:\.[a-zA-Z]{2,6}))+/gim;
-  var replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
-  return replacedText
-}
-
-
-function init_hermes()
+function init_chatbot()
 {
   var token = localStorage.getItem("token");
   var refreshToken = localStorage.getItem("refreshToken");
@@ -161,7 +139,7 @@ function login()
      
       if (data.msg=='Incorrect code')
       {
-        f7.dialog.alert('Incorrect code');
+        f7.dialog.alert('Girdiğin kod hatalıydı');
         return; 
       }
 
@@ -189,7 +167,7 @@ $$(document).on('page:init', '.page[data-name="chat"]', function (e) {
   
 
   $$('#lnkSend').click(function(){
-        var soru = Linkify(mesajBar.getValue().trim());
+        var soru = mesajBar.getValue().trim();
         var token = localStorage.getItem("token");
     
         //Token süresi geçmişse kullanılacak
@@ -220,11 +198,12 @@ $$(document).on('page:init', '.page[data-name="chat"]', function (e) {
             mesajlar.hideTyping();
             
             var yanit = {
-              text: Linkify(data.answer.text),
+              text: data.answer,
               type:'received',
               imageSrc:data.answer.image_url,
               name:app_name
             }
+            console.log(data);
             mesajlar.addMessage(yanit);
             mesajBar.clear();
             mesajBar.focus();

@@ -15,7 +15,7 @@ import json
 
 app = Flask(__name__)
 CORS(app)
-app.config["JWT_SECRET_KEY"] = "asstrobot2024"  
+app.config["JWT_SECRET_KEY"] = "mercurybot2024"  
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
 
@@ -25,7 +25,7 @@ accessCodes=['ef4d','2cfa','dc45','ffa3','e3ad']
 
 @app.route("/",methods=["GET"])
 def index():
-	return 'Merhaba ben  AsstroBot'
+	return 'Merhaba ben  MercuryBot'
 
 @app.route("/login", methods=["POST"])
 def login():
